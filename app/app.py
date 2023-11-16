@@ -1,7 +1,8 @@
 import os
 
-from flask import Flask
+from flask import Flask, render_template, url_for, jsonify
 from . import db
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
@@ -19,8 +20,16 @@ db.init_app(app)
 
 
 @app.route('/')
-def hello_world():  # put application's code here
-    return "Hello TdA Edited Twice :)"
+def index():  # put application's code here
+    return render_template('index.html')
+
+@app.route('/api', methods=['GET'])
+def handle_method():
+    # if request.method == 'GET':
+    #     return 'This is a GET request.'
+    data = {'secret': 'The cake is a lie'}
+    return jsonify(data)
+
 
 
 if __name__ == '__main__':
