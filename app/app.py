@@ -15,7 +15,7 @@ app.config.from_mapping(
 
 
 def getData():
-    file=open("./app/data.json","r")
+    file=open("data.json","r")
     data=file.read()
     data=json.loads(data)
     return data
