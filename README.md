@@ -1,6 +1,5 @@
-# Tour de App - Flask boiler plate
+# Tour de App - Flask
 
-Šablona pro vývoj aplikace pro Tour de App společně s vytvořením a nahráním výstupu.
 
 ## Lokální spuštění
 
@@ -48,7 +47,5 @@ Aplikace bude přístupná na `http://127.0.0.1:8080`
 
 ## Virtuální prostředí a správa balíčků
 
-Jak využít nástroj [Pipenv](https://pypi.org/project/pipenv/), který kombinuje pip a virtualenv. 
+[Pipenv](https://pypi.org/project/pipenv/), který kombinuje pip a virtualenv.
 
-## Odevzdání
-V rámci GitHub akce se aplikace automaticky odevzdává, jediné co je potřeba udělat je v rámci repozitáře si nastavit svůj vlastní [TEAM\_SECRET](https://tourdeapp.cz/vzdelavaci-materialy/2736-sablony-lokalni-deployment-a-odevzdani#:~:text=3.-,Team%20Secret,-Jd%C4%9Bte%20do%20Settings), který dostanete po registraci do soutěže.

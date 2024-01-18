@@ -1,4 +1,5 @@
 import os
+import json
 
 from flask import Flask, render_template, url_for, jsonify
 from . import db
@@ -9,6 +10,17 @@ app = Flask(__name__)
 app.config.from_mapping(
     DATABASE=os.path.join(app.instance_path, 'tourdeflask.sqlite'),
 )
+
+
+
+
+def getData():
+    file=open("./app/data.json","r")
+    data=file.read()
+    data=json.loads(data)
+    return data
+
+
 
 # ensure the instance folder exists
 try:
@@ -22,6 +34,11 @@ db.init_app(app)
 @app.route('/')
 def index():  # put application's code here
     return render_template('index.html')
+
+@app.route('/lecturer')
+def card():  # put application's code here
+    return render_template('card.html',data=getData())
+    # return os.getcwd()
 
 @app.route('/api', methods=['GET'])
 def handle_method():

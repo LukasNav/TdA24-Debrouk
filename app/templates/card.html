@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block head %}
+<style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .business-card {
+            display: flex;
+             max-width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .left-side {
+            padding: 20px;
+            text-align: center;
+            border-right: 1px solid #ccc;
+        }
+
+        .right-side {
+            padding: 20px;
+            text-align: left;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 50%;
+        }
+
+        h1 {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        p {
+            margin: 5px 0;
+            color: #666;
+        }
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            margin-bottom: 5px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+                .tag:hover {
+            filter: brightness(1.2);
+        }
+        @media (max-width: 768px) {
+            /* Adjust the layout for smaller screens */
+            .card {
+                flex-direction: column;
+            }
+
+            .left-side, .right-side {
+                border: none;
+                text-align: center;
+            }
+        }
+
+
+
+    </style>
+
+{% endblock %}
+{% block body %}
+
+
+
+  <div class="business-card">
+        <div class="left-side">
+            <img src={{data["picture_url"]}} alt="Profile Picture">
+
+        </div>
+        <div class="right-side">
+
+            <p><strong>Name:</strong> {{data["title_before"]}} {{data["first_name"]}} {{data["middle_name"]}} {{data["last_name"]}} {{data["title_after"]}}</p>
+            <p><strong>Location:</strong> {{data["location"]}}</p>
+            <p><strong>Claim:</strong> {{data["claim"]}}</p>
+            <p><strong>Bio:</strong> {{data["bio"]|safe}}</p>
+            <p><strong>Tags:</strong> {% for tag in data["tags"] %}<div class="tag" onclick="filterByTag('senior')">
+            {{tag["name"]}}</div>{% endfor %}</p>
+            <!-- Add more information as needed -->
+        </div>
+    </div>
+{# {% for post in data %} #}
+{# {{data}} #}
+    {% for post in data %}
+
+{#         <a href="#">
+            <h2>{{ post['UUID'] }}</h2>
+        </a>
+        <span class="badge badge-primary">{{ post['created'] }}</span>
+        <hr> #}
+    {% endfor %}
+{#         <a href="#">
+            <h2>{{ post['title'] }}</h2>
+        </a>
+        <span class="badge badge-primary">{{ post['created'] }}</span>
+        <hr> #}
+
+    <script>
+        function filterByTag(tag) {
+            // Implement your filtering logic here
+            // For demonstration purposes, you can console.log the selected tag
+            console.log('Filter by tag:', tag);
+        }
+    </script>
+
+{% endblock %}
