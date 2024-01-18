@@ -15,10 +15,12 @@ app.config.from_mapping(
 
 
 def getData():
-    file=open("data.json","r")
+    path="./app/data.json"
+    file=open(path,"r")
     data=file.read()
     data=json.loads(data)
     return data
+
 
 
 
@@ -35,10 +37,13 @@ db.init_app(app)
 def index():  # put application's code here
     return render_template('index.html')
 
+
+
 @app.route('/lecturer')
 def card():  # put application's code here
     return render_template('card.html',data=getData())
-    # return os.getcwd()
+    # return getData()
+
 
 @app.route('/api', methods=['GET'])
 def handle_method():
