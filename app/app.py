@@ -41,7 +41,10 @@ def index():  # put application's code here
 
 @app.route('/lecturer')
 def lecturer():  # put application's code here
-    return render_template('card.html',lecturers=db.get_lecturers()),200
+    dictLect=[]
+    for lect in db.get_lecturers():
+        dictLect.append(json.loads(lect))
+    return render_template('card.html',lecturers=dictLect),200
     # return getData()
 
 
@@ -57,9 +60,9 @@ def get_lecturers():
 @app.route('/api/lecturers', methods=['POST'])
 def post_lecturer():
     lecturer=request.get_json()
-    status=jsonify(db.post_lecturer(lecturer))
+    status=db.post_lecturer(lecturer)
     if status !="ERROR":
-        return status,200
+        return jsonify(status),200
     else:
         return status
 

@@ -1,6 +1,7 @@
 import click
-from flask import current_app, g
+from flask import current_app, g, jsonify
 from flask.cli import with_appcontext
+import json
 
 import sqlite3
 
@@ -16,12 +17,12 @@ def convert_row(row):
     lecturer["location"]=row["location"]
     lecturer["claim"]=row["claim"]
     lecturer["bio"]=row["bio"]
-    lecturer["tags"]=row["tags"]
+    lecturer["tags"]=(row["tags"])
     lecturer["price_per_hour"]=row["price_per_hour"]
-    lecturer["contact"]=row["contact"]
+    lecturer["contact"]=(row["contact"])
 
 
-    return lecturer
+    return json.dumps(lecturer)
 
 
 
