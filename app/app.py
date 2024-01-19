@@ -41,7 +41,7 @@ def index():  # put application's code here
 
 @app.route('/lecturer')
 def lecturer():  # put application's code here
-    return render_template('card.html',lecturers=db.get_lecturers())
+    return render_template('card.html',lecturers=db.get_lecturers()),200
     # return getData()
 
 
@@ -51,28 +51,39 @@ def lecturer():  # put application's code here
 def get_lecturers():
 
     # return db.get_lecturers()
-    return jsonify(db.get_lecturers())
+    return jsonify(db.get_lecturers()),200
 
 
 @app.route('/api/lecturers', methods=['POST'])
 def post_lecturer():
     lecturer=request.get_json()
-    return jsonify(db.post_lecturer(lecturer))
+    status=jsonify(db.post_lecturer(lecturer))
+    if status !="ERROR":
+        return status,200
+    else:
+        return status
 
 @app.route('/api/lecturers/<uuid>', methods=['GET'])
 def get_lecturer(uuid):
+    lecturers=jsonify(db.get_lecturer(uuid))
+    if lecturers != []:
+        return lecturers,200
+    else:
+        return {"code": 404, "message": "Invalid uuid"},404
 
-    return jsonify(db.get_lecturer(uuid))
-    # return
 
 @app.route('/api/lecturers/<uuid>', methods=['PUT'])
 def put_lecturer(uuid):
     change=request.get_json()
-    return jsonify(db.put_lecturer(uuid,change))
+    return jsonify(db.put_lecturer(uuid,change)),200
 
 @app.route('/api/lecturers/<uuid>', methods=['DELETE'])
 def delete_lecturer(uuid):
-    return jsonify(db.delete_lecturer(uuid))
+    status=jsonify(db.delete_lecturer(uuid))
+    if status == "OK":
+        return status,204
+    else:
+        return {"code": 404, "message": "Invalid uuid"},404
 
 if __name__ == '__main__':
     app.run()

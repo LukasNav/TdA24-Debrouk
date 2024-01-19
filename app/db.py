@@ -86,54 +86,54 @@ def get_lecturers():
 
         return lecturers
     except:
-        return "Error getting lecturers"
+        return []
 
 def get_lecturer(uuid):
-    # try:
-    db=get_db()
-    cur=db.cursor()
-    cur.execute("SELECT * FROM record WHERE uuid = ?",(uuid,))
-    rows=cur.fetchone()
+    try:
+        db=get_db()
+        cur=db.cursor()
+        cur.execute("SELECT * FROM record WHERE uuid = ?",(uuid,))
+        rows=cur.fetchone()
     # print(rows)
-    lecturer=convert_row(rows)
-    return lecturer
-    # except:
-    #     return "Error getting lecturer"
+        lecturer=convert_row(rows)
+        return lecturer
+    except:
+        return []
 
 def delete_lecturer(uuid):
-    # try:
-    db=get_db()
-    cur=db.cursor()
-    cur.execute("DELETE FROM record WHERE uuid = ?",(uuid,))
-    db.commit()
-    return "Success"
-    # except:
-    #     conn.rollback()
-    #     return "Error deleting lecturer"
+    try:
+        db=get_db()
+        cur=db.cursor()
+        cur.execute("DELETE FROM record WHERE uuid = ?",(uuid,))
+        db.commit()
+        return "OK"
+    except:
+        conn.rollback()
+        return "ERROR"
 
 
 
 def put_lecturer(uuid,lecturer):
-    # try:
-    db=get_db()
-    cur=db.cursor()
-    cur.execute("UPDATE record SET title_before = ?, first_name = ?, middle_name = ?, last_name = ?, title_after = ?, picture_url = ?, location = ?, claim = ?, bio = ?, tags = ?, price_per_hour = ?, contact = ? WHERE uuid = ?",(lecturer["title_before"], lecturer["first_name"], lecturer["middle_name"], lecturer["last_name"], lecturer["title_after"], lecturer["picture_url"], lecturer["location"], lecturer["claim"], lecturer["bio"], lecturer["tags"], lecturer["price_per_hour"], lecturer["contact"], lecturer["uuid"]))
+    try:
+        db=get_db()
+        cur=db.cursor()
+        cur.execute("UPDATE record SET uuid=?,title_before = ?, first_name = ?, middle_name = ?, last_name = ?, title_after = ?, picture_url = ?, location = ?, claim = ?, bio = ?, tags = ?, price_per_hour = ?, contact = ? WHERE uuid = ?",(lecturer["uuid"],lecturer["title_before"], lecturer["first_name"], lecturer["middle_name"], lecturer["last_name"], lecturer["title_after"], lecturer["picture_url"], lecturer["location"], lecturer["claim"], lecturer["bio"], lecturer["tags"], lecturer["price_per_hour"], lecturer["contact"], lecturer["uuid"]))
     # cur.execute("UPDATE record SET title_before=? WHERE uuid = ?",(lecturer["title_before"],lecturer["uuid"]))
-    db.commit()
-    return "Success updating lecturer"
-    # except:
-    #     return "Error updating lecturer"
+        db.commit()
+        return get_lecturer(uuid)
+    except:
+        return "ERROR"
 
 def post_lecturer(lecturer):
-    # try:
-    db=get_db()
-    cur=db.cursor()
-    cur.execute("INSERT INTO record  (uuid, title_before, first_name, middle_name, last_name, title_after, picture_url, location, claim, bio, tags, price_per_hour, contact) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", (lecturer["uuid"], lecturer["title_before"], lecturer["first_name"], lecturer["middle_name"], lecturer["last_name"], lecturer["title_after"], lecturer["picture_url"], lecturer["location"], lecturer["claim"], lecturer["bio"], lecturer["tags"], lecturer["price_per_hour"], lecturer["contact"]))
+    try:
+        db=get_db()
+        cur=db.cursor()
+        cur.execute("INSERT INTO record  (uuid, title_before, first_name, middle_name, last_name, title_after, picture_url, location, claim, bio, tags, price_per_hour, contact) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", (lecturer["uuid"], lecturer["title_before"], lecturer["first_name"], lecturer["middle_name"], lecturer["last_name"], lecturer["title_after"], lecturer["picture_url"], lecturer["location"], lecturer["claim"], lecturer["bio"], lecturer["tags"], lecturer["price_per_hour"], lecturer["contact"]))
 
-    # cur.execute("INSERT INTO record (uuid,first_name,last_name,contact) VALUES (?,?,?,?)",(lecturer["uuid"],lecturer["first_name"],lecturer["uuid"],lecturer["first_name"]))
-    # (?,?)",(lecturer["uuid"],lecturer["first_name"])
-    db.commit()
+        # cur.execute("INSERT INTO record (uuid,first_name,last_name,contact) VALUES (?,?,?,?)",(lecturer["uuid"],lecturer["first_name"],lecturer["uuid"],lecturer["first_name"]))
+        # (?,?)",(lecturer["uuid"],lecturer["first_name"])
+        db.commit()
 
-    return "Sucess creating lecturer"
-    # except:
-    #     return "Error creating lecturer"
+        return get_lecturer(lecturer["uuid"])
+    except:
+        return "ERROR"
