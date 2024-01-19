@@ -1,7 +1,7 @@
 import os
 import json
 
-from flask import Flask, render_template, url_for, jsonify
+from flask import Flask, render_template, url_for, jsonify, request
 from . import db
 from flask_sqlalchemy import SQLAlchemy
 
@@ -14,12 +14,12 @@ app.config.from_mapping(
 
 
 
-def getData():
-    path="./app/data.json"
-    file=open(path,"r")
-    data=file.read()
-    data=json.loads(data)
-    return data
+# def getData():
+#     path="./app/data.json"
+#     file=open(path,"r")
+#     data=file.read()
+#     data=json.loads(data)
+#     return data
 
 
 
@@ -40,19 +40,39 @@ def index():  # put application's code here
 
 
 @app.route('/lecturer')
-def card():  # put application's code here
-    return render_template('card.html',data=getData())
+def lecturer():  # put application's code here
+    return render_template('card.html',lecturers=db.get_lecturers())
     # return getData()
 
 
-@app.route('/api', methods=['GET'])
-def handle_method():
-    # if request.method == 'GET':
-    #     return 'This is a GET request.'
-    data = {'secret': 'The cake is a lie'}
-    return jsonify(data)
+#api
+
+@app.route('/lecturers', methods=['GET'])
+def get_lecturers():
+
+    # return db.get_lecturers()
+    return jsonify(db.get_lecturers())
 
 
+@app.route('/lecturers', methods=['POST'])
+def post_lecturer():
+    lecturer=request.get_json()
+    return jsonify(db.post_lecturer(lecturer))
+
+@app.route('/lecturers/<uuid>', methods=['GET'])
+def get_lecturer(uuid):
+
+    return jsonify(db.get_lecturer(uuid))
+    # return
+
+@app.route('/lecturers/<uuid>', methods=['PUT'])
+def put_lecturer(uuid):
+    change=request.get_json()
+    return jsonify(db.put_lecturer(uuid,change))
+
+@app.route('/lecturers/<uuid>', methods=['DELETE'])
+def delete_lecturer(uuid):
+    return jsonify(db.delete_lecturer(uuid))
 
 if __name__ == '__main__':
     app.run()
