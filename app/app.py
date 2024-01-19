@@ -86,4 +86,5 @@ def delete_lecturer(uuid):
         return {"code": 404, "message": "Invalid uuid"},404
 
 if __name__ == '__main__':
+
     app.run()

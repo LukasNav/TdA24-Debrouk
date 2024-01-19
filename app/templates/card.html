@@ -89,17 +89,16 @@
             <p><strong>Location:</strong> {{lecturer["location"]}}</p>
             <p><strong>Claim:</strong> {{lecturer["claim"]}}</p>
             <p><strong>Bio:</strong> {{lecturer["bio"]|safe}}</p>
-            <p><strong>Tags:</strong>
+            <p><strong>Tags:</strong>{{lecturer["tags"]}}</p>
 {#                 {% for tag in lecturer["tags"] %}<div class="tag" onclick="filterByTag('senior')">
             {{tag["name"]}}</div>{% endfor %} #}
 </p>
-            <p><strong>Price per hour:</strong></p>
-            <p><strong>Contact:</strong>
+            <p><strong>Price per hour:</strong>{{lecturer["price_per_hour"]}}</p>
+            <p><strong>Contact:</strong>{{lecturer["contact"]}}</p>
 {#                 {% for contact in lecturer["contact"] %}<div class="contact">
-            {{contact}}</div>{% endfor %} #}
-</p>
+            {{contact}}</div>{% endfor %} </p>
 
-
+ #}
 
         </div>
     </div>
