@@ -47,30 +47,30 @@ def lecturer():  # put application's code here
 
 #api
 
-@app.route('/lecturers', methods=['GET'])
+@app.route('/api/lecturers', methods=['GET'])
 def get_lecturers():
 
     # return db.get_lecturers()
     return jsonify(db.get_lecturers())
 
 
-@app.route('/lecturers', methods=['POST'])
+@app.route('/api/lecturers', methods=['POST'])
 def post_lecturer():
     lecturer=request.get_json()
     return jsonify(db.post_lecturer(lecturer))
 
-@app.route('/lecturers/<uuid>', methods=['GET'])
+@app.route('/api/lecturers/<uuid>', methods=['GET'])
 def get_lecturer(uuid):
 
     return jsonify(db.get_lecturer(uuid))
     # return
 
-@app.route('/lecturers/<uuid>', methods=['PUT'])
+@app.route('/api/lecturers/<uuid>', methods=['PUT'])
 def put_lecturer(uuid):
     change=request.get_json()
     return jsonify(db.put_lecturer(uuid,change))
 
-@app.route('/lecturers/<uuid>', methods=['DELETE'])
+@app.route('/api/lecturers/<uuid>', methods=['DELETE'])
 def delete_lecturer(uuid):
     return jsonify(db.delete_lecturer(uuid))
 
