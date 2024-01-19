@@ -35,7 +35,10 @@ db.init_app(app)
 
 @app.route('/')
 def index():  # put application's code here
-    return render_template('index.html')
+    dictLect=[]
+    for lect in db.get_lecturers():
+        dictLect.append(json.loads(lect))
+    return render_template('home.html',lecturers=dictLect),200
 
 
 
@@ -52,9 +55,11 @@ def lecturer():  # put application's code here
 
 @app.route('/api/lecturers', methods=['GET'])
 def get_lecturers():
-
+    dictLect=[]
+    for lect in db.get_lecturers():
+        dictLect.append(json.loads(lect))
     # return db.get_lecturers()
-    return jsonify(db.get_lecturers()),200
+    return jsonify(dictLect),200
 
 
 @app.route('/api/lecturers', methods=['POST'])

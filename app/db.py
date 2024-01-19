@@ -23,6 +23,7 @@ def convert_row(row):
 
 
     return json.dumps(lecturer)
+    # return lecturer
 
 
 
